@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { DoorOpen, LoaderCircle, LogOut, Navigation, Plus, Search, Settings } from "lucide-react";
+import { DoorOpen, Handshake, LoaderCircle, LogOut, PackageCheck, Plus, Search, Settings } from "lucide-react";
+import { BrandLogo } from "@/src/components/BrandLogo";
+import { CarrierOperations } from "@/src/components/CarrierOperations";
 import { RouteWorkbench } from "@/src/components/RouteWorkbench";
 import { dashboardStats } from "@/src/lib/operations";
 import { isSupabaseConfigured, supabase } from "@/src/lib/supabase";
@@ -73,7 +75,7 @@ export default function DashboardPage() {
       <aside className="dashboard-sidebar">
         <Link href="/" className="brand-mark dashboard-brand">
           <span className="brand-icon">
-            <Navigation aria-hidden="true" size={19} strokeWidth={2.3} />
+            <BrandLogo size={20} />
           </span>
           <span>
             <strong>AI Logistic</strong>
@@ -85,9 +87,17 @@ export default function DashboardPage() {
             <DoorOpen aria-hidden="true" size={18} />
             Route Console
           </a>
-          <a href="#bookings">
+          <a href="#route-console">
             <Plus aria-hidden="true" size={18} />
             Bookings
+          </a>
+          <a href="#carrier-bids">
+            <Handshake aria-hidden="true" size={18} />
+            Carrier Bids
+          </a>
+          <a href="#orders">
+            <PackageCheck aria-hidden="true" size={18} />
+            Orders
           </a>
           <a href="#settings">
             <Settings aria-hidden="true" size={18} />
@@ -131,6 +141,14 @@ export default function DashboardPage() {
 
         <section id="route-console" className="dashboard-workbench">
           <RouteWorkbench compact />
+        </section>
+
+        <section id="carrier-bids" className="dashboard-carrier-workbench">
+          <div className="dashboard-section-heading">
+            <p className="eyebrow">Bidding and order control</p>
+            <h2>Certified carriers, communication, awarded orders, and delivery follow-through.</h2>
+          </div>
+          <CarrierOperations compact />
         </section>
       </section>
     </main>

@@ -1,6 +1,11 @@
 import {
+  BadgeCheck,
   CalendarCheck,
+  ClipboardCheck,
+  Handshake,
   MapPinned,
+  MessageSquare,
+  PackageCheck,
   Radar,
   Route,
   ShieldCheck,
@@ -29,6 +34,26 @@ export const featureModules = [
     icon: ShieldCheck,
     title: "Carrier-Ready Coordination",
     body: "Keep dispatch notes, equipment requirements, and customer visibility aligned before a truck reaches the dock."
+  },
+  {
+    icon: BadgeCheck,
+    title: "Verified Carrier Bidding",
+    body: "Open booked freight only to approved carriers, compare bids, service scores, equipment fit, and response speed."
+  },
+  {
+    icon: MessageSquare,
+    title: "Carrier Communication Hub",
+    body: "Keep questions, rate confirmations, dock instructions, and exception notes tied to the same booking record."
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Order Assignment",
+    body: "Award the load, issue the order, and lock carrier obligations before pickup is released."
+  },
+  {
+    icon: PackageCheck,
+    title: "Delivery Management",
+    body: "Track pickup, in-transit checkpoints, retail receiving, POD, and exception recovery from one order view."
   }
 ];
 
@@ -97,5 +122,86 @@ export const dashboardStats = [
     icon: Warehouse,
     label: "Dock Bookings",
     value: "11"
+  },
+  {
+    icon: Handshake,
+    label: "Open Bids",
+    value: "7"
   }
+];
+
+export const carrierBidBoard = [
+  {
+    carrier: "NorthStar Freight",
+    status: "Verified",
+    bid: "$1,420",
+    eta: "Pickup 06:45",
+    score: "96",
+    notes: "Team driver available, retail dock approved"
+  },
+  {
+    carrier: "BlueLine Logistics",
+    status: "Verified",
+    bid: "$1,360",
+    eta: "Pickup 07:15",
+    score: "91",
+    notes: "Best price, needs reefer confirmation"
+  },
+  {
+    carrier: "Summit Carrier Group",
+    status: "Verified",
+    bid: "$1,510",
+    eta: "Pickup 06:30",
+    score: "94",
+    notes: "Strong on-time history for club deliveries"
+  }
+];
+
+export const carrierMessages = [
+  {
+    from: "Coordinator",
+    text: "Please confirm pallet count, liftgate not required, Costco appointment 10:00.",
+    time: "09:12"
+  },
+  {
+    from: "NorthStar Freight",
+    text: "Confirmed. Driver can check in 20 minutes early with PO and seal number.",
+    time: "09:14"
+  },
+  {
+    from: "Coordinator",
+    text: "Award pending. Upload insurance cert and driver contact before order release.",
+    time: "09:16"
+  }
+];
+
+export const orderMilestones = [
+  {
+    label: "Bid awarded",
+    detail: "NorthStar Freight accepted at $1,420",
+    state: "Done"
+  },
+  {
+    label: "Order issued",
+    detail: "Rate confirmation and retail instructions sent",
+    state: "Done"
+  },
+  {
+    label: "Pickup monitoring",
+    detail: "Driver en route to Dallas Fulfillment",
+    state: "Live"
+  },
+  {
+    label: "Delivery proof",
+    detail: "POD required after Costco receiving",
+    state: "Next"
+  }
+];
+
+export const carrierWorkflow = [
+  "Tender opened",
+  "Bids received",
+  "Carrier selected",
+  "Order released",
+  "Delivery monitored"
 ];

@@ -1,6 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarCheck, CheckCircle2, MapPinned, Navigation, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  CalendarCheck,
+  CheckCircle2,
+  Handshake,
+  Instagram,
+  Linkedin,
+  MapPinned,
+  Navigation,
+  PackageCheck,
+  Route
+} from "lucide-react";
+import { BrandLogo } from "@/src/components/BrandLogo";
+import { CarrierOperations } from "@/src/components/CarrierOperations";
 import { SiteHeader } from "@/src/components/SiteHeader";
 import { RouteWorkbench } from "@/src/components/RouteWorkbench";
 import { featureModules } from "@/src/lib/operations";
@@ -9,7 +23,35 @@ const servicePillars = [
   "AI route recommendation",
   "Costco dock appointment prep",
   "Sam's Club receiving workflow",
-  "Driver ETA coordination"
+  "Verified carrier bidding",
+  "Order and delivery control"
+];
+
+const operatingFlow = [
+  {
+    icon: CalendarCheck,
+    label: "Book",
+    title: "Dock window ready",
+    body: "Collect PO, pallet, equipment, and arrival requirements."
+  },
+  {
+    icon: Route,
+    label: "Plan",
+    title: "Route recommended",
+    body: "Compare stops, buffers, ETA risk, and appointment timing."
+  },
+  {
+    icon: Handshake,
+    label: "Tender",
+    title: "Verified bids open",
+    body: "Invite only approved carriers to bid and communicate."
+  },
+  {
+    icon: PackageCheck,
+    label: "Control",
+    title: "Order tracked",
+    body: "Award, issue, monitor, and close with proof of delivery."
+  }
 ];
 
 export default function Home() {
@@ -58,6 +100,10 @@ export default function Home() {
               <strong>Retail dock</strong>
               booking queue
             </span>
+            <span>
+              <strong>Carrier bids</strong>
+              order awards
+            </span>
           </div>
         </div>
       </section>
@@ -95,35 +141,147 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-shell workbench-section" id="booking">
-        <div className="workbench-copy">
-          <p className="eyebrow">AI route console</p>
-          <h2>Let the coordinator recommend the route, then line up the dock window.</h2>
+      <section className="section-shell operations-showcase" id="booking">
+        <div className="operations-heading">
+          <p className="eyebrow">Operating flow</p>
+          <h2>From dock appointment to delivered order, every handoff stays visible.</h2>
           <p>
-            Operators see the next best route alongside appointment requirements, keeping freight movement and retail booking work in the same operating rhythm.
+            AI Logistic Coordinator connects appointment planning, route recommendation, certified carrier bidding, in-app communication, order release, and delivery proof into one workflow.
           </p>
         </div>
-        <RouteWorkbench />
+        <div className="flow-grid" aria-label="Booking to delivery workflow">
+          {operatingFlow.map(({ icon: Icon, label, title, body }) => (
+            <article className="flow-card" key={label}>
+              <span className="flow-label">{label}</span>
+              <Icon aria-hidden="true" size={22} />
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+        <div className="showcase-block">
+          <div className="showcase-copy">
+            <p className="eyebrow">Route and appointment console</p>
+            <h3>Recommend the route, then line up the dock window.</h3>
+            <p>
+              Operators see the next best route beside appointment requirements, so freight movement and retail booking work stay in the same operating rhythm.
+            </p>
+            <div className="showcase-chips">
+              <span>
+                <Route aria-hidden="true" size={15} />
+                94 route score
+              </span>
+              <span>
+                <CalendarCheck aria-hidden="true" size={15} />
+                Retail window matched
+              </span>
+            </div>
+          </div>
+          <RouteWorkbench />
+        </div>
+        <div className="showcase-block carrier-showcase-block" id="carriers">
+          <div className="showcase-copy">
+            <p className="eyebrow">Carrier bid and order control</p>
+            <h3>Turn confirmed bookings into bids, awarded orders, and managed deliveries.</h3>
+            <p>
+              Approved carriers bid inside the system, communicate on the load record, receive awarded orders, and report execution from pickup to POD.
+            </p>
+            <div className="showcase-chips">
+              <span>
+                <BadgeCheck aria-hidden="true" size={15} />
+                Verified carriers only
+              </span>
+              <span>
+                <PackageCheck aria-hidden="true" size={15} />
+                POD follow-through
+              </span>
+            </div>
+          </div>
+          <CarrierOperations />
+        </div>
       </section>
 
       <section className="cta-band">
         <div>
-          <p className="eyebrow">Ready for Vercel + Supabase</p>
-          <h2>Launch the homepage, then connect real accounts and bookings.</h2>
+          <p className="eyebrow">Secure operating portal</p>
+          <h2>Invite dispatchers, shippers, and approved carriers into one coordinated workflow.</h2>
+          <p>
+            Sign in to plan routes, prepare retail dock appointments, run verified carrier bids, and track every order through proof of delivery.
+          </p>
         </div>
         <Link href="/login" className="primary-button">
           <CalendarCheck aria-hidden="true" size={18} />
-          <span>Open secure login</span>
+          <span>Open coordinator portal</span>
         </Link>
       </section>
 
       <footer className="site-footer">
-        <span>AI Logistic Coordinator</span>
-        <span>Costco and Sam's Club names are used only to describe configurable retail booking workflows.</span>
-        <span>
-          <Zap aria-hidden="true" size={15} />
-          Built for Vercel deployment
-        </span>
+        <div className="footer-top">
+          <div className="footer-brand">
+            <Link href="/" className="brand-mark footer-logo" aria-label="AI Logistic Coordinator home">
+              <span className="brand-icon">
+                <BrandLogo size={20} />
+              </span>
+              <span>
+                <strong>AI Logistic</strong>
+                <small>Coordinator</small>
+              </span>
+            </Link>
+            <address className="footer-address">
+              AI-assisted route coordination, live freight tracking, and retail dock booking — from booking request to proof of delivery.
+            </address>
+            <div className="footer-contact">
+              <a href="mailto:dispatch@ailogistic.app">dispatch@ailogistic.app</a>
+              <a href="tel:+18887000000">(888) 700-0000</a>
+            </div>
+          </div>
+
+          <nav className="footer-col" aria-label="Platform links">
+            <h3>Platform</h3>
+            <Link href="/dashboard#route-console">Route Console</Link>
+            <Link href="/dashboard#route-console">Booking Queue</Link>
+            <Link href="/dashboard#carrier-bids">Carrier Bids</Link>
+            <Link href="/dashboard#orders">Order Tracking</Link>
+            <a href="#platform">Documents</a>
+          </nav>
+
+          <nav className="footer-col" aria-label="Workflow links">
+            <h3>Workflows</h3>
+            <a href="#booking">Costco Booking</a>
+            <a href="#booking">Sam's Club Receiving</a>
+            <a href="#carriers">Verified Carriers</a>
+            <a href="#carriers">Carrier Bidding</a>
+            <a href="#carriers">Proof of Delivery</a>
+          </nav>
+
+          <nav className="footer-col" aria-label="Company links">
+            <h3>Company</h3>
+            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/login">Login</Link>
+            <a href="#platform">About</a>
+            <a href="#platform">Pricing</a>
+            <a href="#platform">Contact</a>
+          </nav>
+        </div>
+
+        <div className="footer-bottom">
+          <span>© 2026 AI Logistic Coordinator. All rights reserved.</span>
+          <div className="footer-bottom-right">
+            <a href="#platform">Privacy Policy</a>
+            <span className="footer-social">
+              <a href="#" aria-label="LinkedIn">
+                <Linkedin aria-hidden="true" size={17} />
+              </a>
+              <a href="#" aria-label="Instagram">
+                <Instagram aria-hidden="true" size={17} />
+              </a>
+            </span>
+          </div>
+        </div>
+
+        <p className="footer-disclaimer">
+          Costco and Sam's Club are trademarks of their respective owners, referenced only to illustrate configurable retail booking workflows.
+        </p>
       </footer>
     </main>
   );
