@@ -57,50 +57,190 @@ export const featureModules = [
   }
 ];
 
-export const routeStops = [
+export type LoadStop = {
+  route: string;
+  color: string;
+  code: string;
+  shipTo: string;
+  city: string;
+  po: string;
+  qty: number;
+  appt: string;
+  opHours: string;
+  status: "Confirmed" | "Pending";
+  dock: string;
+};
+
+export const loadPlanSummary = {
+  total: "$95,758",
+  hub: "MS",
+  units: 190,
+  capacity: 360,
+  routes: 6,
+  stops: 12,
+  confirmed: 11,
+  pending: 1
+};
+
+export const loadPlan: LoadStop[] = [
   {
-    code: "DC",
-    title: "Dallas Fulfillment",
-    meta: "Origin - 42 pallets",
-    eta: "06:20",
-    status: "Ready"
+    route: "R1",
+    color: "#ef4444",
+    code: "NE",
+    shipTo: "McLane Northeast",
+    city: "Baldwinsville, NY",
+    po: "NE10089926-01",
+    qty: 6,
+    appt: "7/7 @ 21:00",
+    opHours: "SUN-THU 8PM-1AM",
+    status: "Confirmed",
+    dock: "NE G02"
   },
   {
-    code: "S1",
-    title: "Sam's Club Receiving",
-    meta: "Plano, TX - appointment window",
-    eta: "08:05",
-    status: "Booking"
+    route: "R1",
+    color: "#ef4444",
+    code: "MY",
+    shipTo: "McLane NE / Concord",
+    city: "Contoocook, NH",
+    po: "MY10080067-01",
+    qty: 3,
+    appt: "7/8 @ 20:00",
+    opHours: "SUN-THU 7PM-1AM",
+    status: "Confirmed",
+    dock: "G13"
   },
   {
-    code: "C1",
-    title: "Costco Depot",
-    meta: "Fort Worth, TX - dry van",
-    eta: "10:35",
-    status: "Confirmed"
+    route: "R2",
+    color: "#2f81f7",
+    code: "MZ",
+    shipTo: "McLane Mid-Atlantic",
+    city: "Fredericksburg, VA",
+    po: "MZ10090952-01",
+    qty: 4,
+    appt: "7/7 @ 15:00",
+    opHours: "MON-FRI 11AM-4PM",
+    status: "Confirmed",
+    dock: "MZG84"
+  },
+  {
+    route: "R2",
+    color: "#2f81f7",
+    code: "NC",
+    shipTo: "McLane Carolina",
+    city: "Battleboro, NC",
+    po: "NC10102677-01",
+    qty: 15,
+    appt: "7/8 @ 11:00",
+    opHours: "MON-FRI 10AM-4PM",
+    status: "Confirmed",
+    dock: "NC D17"
+  },
+  {
+    route: "R3",
+    color: "#28a745",
+    code: "MI",
+    shipTo: "McLane Midwest",
+    city: "Indianapolis, IN",
+    po: "MI10102073-01",
+    qty: 20,
+    appt: "7/6 @ 16:00",
+    opHours: "SUN-THU 4PM-11PM",
+    status: "Confirmed",
+    dock: "MI S19"
+  },
+  {
+    route: "R3",
+    color: "#28a745",
+    code: "MO",
+    shipTo: "McLane Ozark",
+    city: "Republic, MO",
+    po: "MO10102417-01",
+    qty: 30,
+    appt: "7/7 @ 07:00",
+    opHours: "MON-FRI 5AM-2PM",
+    status: "Confirmed",
+    dock: "MO 51"
+  },
+  {
+    route: "R4",
+    color: "#f59e0b",
+    code: "SE",
+    shipTo: "McLane Southeast",
+    city: "Athens, GA",
+    po: "SE10206395-01",
+    qty: 22,
+    appt: "7/5 @ 23:00",
+    opHours: "SUN-THU 11PM-2AM",
+    status: "Confirmed",
+    dock: "SE S03"
+  },
+  {
+    route: "R4",
+    color: "#f59e0b",
+    code: "ME",
+    shipTo: "McLane Suneast",
+    city: "Kissimmee, FL",
+    po: "ME10139631-01",
+    qty: 20,
+    appt: "7/6 @ 08:00",
+    opHours: "MON-THU 7PM-11PM",
+    status: "Pending",
+    dock: "Seasonal"
+  },
+  {
+    route: "R5",
+    color: "#8b5cf6",
+    code: "MN",
+    shipTo: "McLane Minnesota",
+    city: "Northfield, MN",
+    po: "MN10103311-01",
+    qty: 20,
+    appt: "7/6 @ 20:00",
+    opHours: "SUN-THU 7PM-2AM",
+    status: "Confirmed",
+    dock: "MN G24"
+  },
+  {
+    route: "R6",
+    color: "#14b8a6",
+    code: "MG",
+    shipTo: "McLane Ohio",
+    city: "Findlay, OH",
+    po: "MG10193758-01",
+    qty: 25,
+    appt: "7/5 @ 20:30",
+    opHours: "MON-FRI 6AM-1PM",
+    status: "Confirmed",
+    dock: "MGD 38"
+  },
+  {
+    route: "R6",
+    color: "#14b8a6",
+    code: "MK",
+    shipTo: "McLane Cumberland",
+    city: "Nicholasville, KY",
+    po: "MK10094108-01",
+    qty: 20,
+    appt: "7/6 @ 20:00",
+    opHours: "SUN-THU 8PM-3AM",
+    status: "Confirmed",
+    dock: "MK G10"
+  },
+  {
+    route: "R6",
+    color: "#14b8a6",
+    code: "SO",
+    shipTo: "McLane Southern",
+    city: "Brookhaven, MS",
+    po: "SO10085631-01",
+    qty: 5,
+    appt: "7/7 @ 22:00",
+    opHours: "SUN-THU 7PM-11PM",
+    status: "Confirmed",
+    dock: "SO G13"
   }
 ];
 
-export const bookingQueue = [
-  {
-    retailer: "Costco",
-    lane: "DFW to Fort Worth",
-    window: "10:00 - 11:30",
-    state: "Confirmed"
-  },
-  {
-    retailer: "Sam's Club",
-    lane: "Dallas to Plano",
-    window: "08:00 - 09:00",
-    state: "Needs PO"
-  },
-  {
-    retailer: "Costco",
-    lane: "Irving to Tulsa",
-    window: "Tomorrow AM",
-    state: "Recommended"
-  }
-];
 
 export const dashboardStats = [
   {

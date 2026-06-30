@@ -169,11 +169,11 @@ export default function Home() {
             <div className="showcase-chips">
               <span>
                 <Route aria-hidden="true" size={15} />
-                94 route score
+                6 routes · 190 units
               </span>
               <span>
                 <CalendarCheck aria-hidden="true" size={15} />
-                Retail window matched
+                11 of 12 appointments confirmed
               </span>
             </div>
           </div>

@@ -1,26 +1,35 @@
 import { CalendarClock, CheckCircle2, CircleDashed, Clock3, Sparkles } from "lucide-react";
-import { bookingQueue, routeStops } from "@/src/lib/operations";
+import { loadPlan } from "@/src/lib/operations";
 
 type RouteWorkbenchProps = {
   compact?: boolean;
 };
 
+// One real 3-stop route (R6: McLane Ohio -> Cumberland -> Southern).
+const routeStops = loadPlan.filter((stop) => stop.route === "R6");
+const routeUnits = routeStops.reduce((sum, stop) => sum + stop.qty, 0);
+
+// A small, varied appointment sample (includes a pending one).
+const appointmentQueue = [loadPlan[0], loadPlan[5], loadPlan[7]];
+
+const city = (value: string) => value.split(",")[0];
+
 export function RouteWorkbench({ compact = false }: RouteWorkbenchProps) {
   return (
     <div className={compact ? "route-workbench compact-route-workbench" : "route-workbench"}>
-      <section className="map-panel" aria-label="Optimized route preview">
+      <section className="map-panel" aria-label="Recommended route preview">
         <div className="panel-title-row">
           <div>
             <p className="eyebrow">Route intelligence</p>
-            <h2>Recommended route A</h2>
+            <h2>Recommended route R6</h2>
           </div>
           <span className="score-pill">
             <Sparkles aria-hidden="true" size={15} />
-            94 score
+            {routeUnits} units
           </span>
         </div>
         <div className="route-map">
-          <svg className="route-svg" viewBox="0 0 620 320" role="img" aria-label="Route from Dallas fulfillment to retail docks">
+          <svg className="route-svg" viewBox="0 0 620 320" role="img" aria-label="Recommended multi-stop route">
             <defs>
               <linearGradient id="routeLine" x1="0%" x2="100%" y1="0%" y2="0%">
                 <stop offset="0%" stopColor="#40c463" />
@@ -35,19 +44,21 @@ export function RouteWorkbench({ compact = false }: RouteWorkbenchProps) {
             <circle className="stop-node mid" cx="322" cy="150" r="12" />
             <circle className="stop-node end" cx="570" cy="84" r="12" />
           </svg>
-          <div className="map-city city-a">Dallas</div>
-          <div className="map-city city-b">Plano</div>
-          <div className="map-city city-c">Fort Worth</div>
+          <div className="map-city city-a">{city(routeStops[0].city)}</div>
+          <div className="map-city city-b">{city(routeStops[1].city)}</div>
+          <div className="map-city city-c">{city(routeStops[2].city)}</div>
         </div>
         <div className="route-stops">
           {routeStops.map((stop) => (
-            <article className="stop-card" key={stop.code}>
+            <article className="stop-card" key={stop.po}>
               <span className="stop-code">{stop.code}</span>
               <div>
-                <h3>{stop.title}</h3>
-                <p>{stop.meta}</p>
+                <h3>{stop.shipTo}</h3>
+                <p>
+                  {stop.city} · {stop.opHours}
+                </p>
               </div>
-              <strong>{stop.eta}</strong>
+              <strong>{stop.appt}</strong>
               <span className="stop-status">{stop.status}</span>
             </article>
           ))}
@@ -57,28 +68,28 @@ export function RouteWorkbench({ compact = false }: RouteWorkbenchProps) {
         <div className="panel-title-row">
           <div>
             <p className="eyebrow">Retail appointments</p>
-            <h2>Booking queue</h2>
+            <h2>Appointment queue</h2>
           </div>
           <CalendarClock aria-hidden="true" size={24} />
         </div>
         <div className="queue-list">
-          {bookingQueue.map((booking) => (
-            <article className="queue-item" key={`${booking.retailer}-${booking.lane}`}>
+          {appointmentQueue.map((booking) => (
+            <article className="queue-item" key={booking.po}>
               <div>
-                <h3>{booking.retailer}</h3>
-                <p>{booking.lane}</p>
+                <h3>{booking.shipTo}</h3>
+                <p>
+                  {booking.city} · Dock {booking.dock}
+                </p>
               </div>
               <div>
-                <strong>{booking.window}</strong>
-                <span className={`queue-state ${booking.state.toLowerCase().replace(/\s+/g, "-")}`}>
-                  {booking.state === "Confirmed" ? (
+                <strong>{booking.appt}</strong>
+                <span className={`queue-state ${booking.status.toLowerCase()}`}>
+                  {booking.status === "Confirmed" ? (
                     <CheckCircle2 aria-hidden="true" size={14} />
-                  ) : booking.state === "Recommended" ? (
-                    <Sparkles aria-hidden="true" size={14} />
                   ) : (
                     <CircleDashed aria-hidden="true" size={14} />
                   )}
-                  {booking.state}
+                  {booking.status}
                 </span>
               </div>
             </article>
@@ -86,7 +97,7 @@ export function RouteWorkbench({ compact = false }: RouteWorkbenchProps) {
         </div>
         <div className="recommendation-strip">
           <Clock3 aria-hidden="true" size={18} />
-          <p>Best next slot: Sam's Club Plano at 08:00 based on route sequence and dock buffer.</p>
+          <p>Best next slot: McLane Ozark (MO) at 07:00 — open dock and matched pickup window.</p>
         </div>
       </section>
     </div>

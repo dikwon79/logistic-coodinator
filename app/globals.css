@@ -636,7 +636,8 @@ button {
   gap: 8px;
 }
 
-.queue-state.needs-po {
+.queue-state.needs-po,
+.queue-state.pending {
   color: #92400e;
   background: #fff7ed;
 }
