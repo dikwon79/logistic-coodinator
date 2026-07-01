@@ -1,5 +1,5 @@
 import { Award, BadgeCheck, MessageSquare, PackageCheck, Send, ShieldCheck } from "lucide-react";
-import { carrierBidBoard, carrierMessages, carrierWorkflow, orderMilestones } from "@/src/lib/operations";
+import { carrierBidBoard, carrierMessages, carrierTender, carrierWorkflow, orderMilestones } from "@/src/lib/operations";
 
 type CarrierOperationsProps = {
   compact?: boolean;
@@ -12,25 +12,25 @@ export function CarrierOperations({ compact = false }: CarrierOperationsProps) {
         <div className="panel-title-row">
           <div>
             <p className="eyebrow">Verified carrier bidding</p>
-            <h2>Open tender: DFW to Fort Worth</h2>
+            <h2>Open tender: {carrierTender.lane}</h2>
           </div>
           <span className="score-pill">
             <BadgeCheck aria-hidden="true" size={15} />
-            3 verified bids
+            {carrierBidBoard.length} verified bids
           </span>
         </div>
         <div className="tender-summary" aria-label="Load tender summary">
           <span>
             <small>Load</small>
-            <strong>42 pallets</strong>
+            <strong>{carrierTender.units}</strong>
           </span>
           <span>
             <small>Equipment</small>
-            <strong>Dry van</strong>
+            <strong>{carrierTender.equipment}</strong>
           </span>
           <span>
             <small>Appointment</small>
-            <strong>10:00 Costco</strong>
+            <strong>{carrierTender.appointment}</strong>
           </span>
         </div>
         <div className="carrier-bid-list">
@@ -59,7 +59,7 @@ export function CarrierOperations({ compact = false }: CarrierOperationsProps) {
         <div className="carrier-action-row">
           <button type="button" className="mini-action primary-mini-action">
             <Award aria-hidden="true" size={16} />
-            Award NorthStar
+            Award {carrierBidBoard[0].carrier.split(" ")[0]}
           </button>
           <button type="button" className="mini-action">
             <MessageSquare aria-hidden="true" size={16} />
@@ -99,7 +99,7 @@ export function CarrierOperations({ compact = false }: CarrierOperationsProps) {
         <div className="panel-title-row">
           <div>
             <p className="eyebrow">Order management</p>
-            <h2>ORD-2048 delivery control</h2>
+            <h2>Order ORD-2048 · McLane Ozark (MO)</h2>
           </div>
           <PackageCheck aria-hidden="true" size={24} />
         </div>

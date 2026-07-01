@@ -1,5 +1,5 @@
 import { CalendarClock, CheckCircle2, CircleDashed, Clock3, Sparkles } from "lucide-react";
-import { loadPlan } from "@/src/lib/operations";
+import { loadPlan, loadPlanSummary } from "@/src/lib/operations";
 
 type RouteWorkbenchProps = {
   compact?: boolean;
@@ -8,6 +8,10 @@ type RouteWorkbenchProps = {
 // One real 3-stop route (R6: McLane Ohio -> Cumberland -> Southern).
 const routeStops = loadPlan.filter((stop) => stop.route === "R6");
 const routeUnits = routeStops.reduce((sum, stop) => sum + stop.qty, 0);
+
+// Map labels, ordered south -> north so they sit sensibly on the route
+// (bottom-left = southernmost, top-right = northernmost).
+const mapCities = [...routeStops].sort((a, b) => a.lat - b.lat);
 
 // A small, varied appointment sample (includes a pending one).
 const appointmentQueue = [loadPlan[0], loadPlan[5], loadPlan[7]];
@@ -44,9 +48,10 @@ export function RouteWorkbench({ compact = false }: RouteWorkbenchProps) {
             <circle className="stop-node mid" cx="322" cy="150" r="12" />
             <circle className="stop-node end" cx="570" cy="84" r="12" />
           </svg>
-          <div className="map-city city-a">{city(routeStops[0].city)}</div>
-          <div className="map-city city-b">{city(routeStops[1].city)}</div>
-          <div className="map-city city-c">{city(routeStops[2].city)}</div>
+          <div className="map-city city-a">{city(mapCities[0].city)}</div>
+          <div className="map-city city-b">{city(mapCities[1].city)}</div>
+          <div className="map-city city-c">{city(mapCities[2].city)}</div>
+          <span className="plan-total-badge">Total {loadPlanSummary.total}</span>
         </div>
         <div className="route-stops">
           {routeStops.map((stop) => (

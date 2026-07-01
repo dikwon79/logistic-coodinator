@@ -497,6 +497,19 @@ button {
   height: 100%;
 }
 
+.plan-total-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  padding: 5px 10px;
+  color: #ffffff;
+  background: rgba(16, 24, 39, 0.86);
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
 .map-road {
   fill: none;
   stroke: rgba(33, 48, 68, 0.18);

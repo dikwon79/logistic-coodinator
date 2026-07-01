@@ -97,6 +97,10 @@ export default function Home() {
               monitoring
             </span>
             <span>
+              <strong>Auto schedule</strong>
+              dock slots
+            </span>
+            <span>
               <strong>Retail dock</strong>
               booking queue
             </span>
