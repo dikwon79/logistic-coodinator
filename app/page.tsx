@@ -235,7 +235,7 @@ export default function Home() {
               AI-assisted route coordination, live freight tracking, and retail dock booking — from booking request to proof of delivery.
             </address>
             <div className="footer-contact">
-              <a href="mailto:dispatch@ailogistic.app">dispatch@ailogistic.app</a>
+              <a href="mailto:dispatch@ailogistic.app">sam.kwon@innofoods.ca</a>
               <a href="tel:+18887000000">(888) 700-0000</a>
             </div>
           </div>
