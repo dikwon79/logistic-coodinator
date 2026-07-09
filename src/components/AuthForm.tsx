@@ -118,9 +118,6 @@ export function AuthForm() {
       </form>
 
       {message ? <p className="auth-message">{message}</p> : null}
-      {!isSupabaseConfigured ? (
-        <p className="auth-message setup-message">Add Supabase project values before enabling production login.</p>
-      ) : null}
     </div>
   );
 }
