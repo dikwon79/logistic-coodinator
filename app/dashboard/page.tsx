@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { DoorOpen, Handshake, LoaderCircle, LogOut, PackageCheck, Plus, Search, Settings } from "lucide-react";
 import { BrandLogo } from "@/src/components/BrandLogo";
 import { CarrierOperations } from "@/src/components/CarrierOperations";
-import { RouteWorkbench } from "@/src/components/RouteWorkbench";
+import { RouteConsole } from "@/src/components/RouteConsole";
 import { dashboardStats } from "@/src/lib/operations";
 import { createClient } from "@/src/lib/supabase/client";
 import { isSupabaseConfigured } from "@/src/lib/supabase/config";
@@ -142,8 +142,12 @@ export default function DashboardPage() {
           ))}
         </section>
 
-        <section id="route-console" className="dashboard-workbench">
-          <RouteWorkbench compact />
+        <section id="route-console" className="dashboard-console">
+          <div className="dashboard-section-heading">
+            <p className="eyebrow">Route and appointment console</p>
+            <h2>Live load plan from the route engine — optimize, schedule, and book.</h2>
+          </div>
+          <RouteConsole />
         </section>
 
         <section id="carrier-bids" className="dashboard-carrier-workbench">
