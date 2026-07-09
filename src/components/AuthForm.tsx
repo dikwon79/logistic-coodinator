@@ -1,14 +1,16 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, LoaderCircle, LogIn, UserPlus } from "lucide-react";
-import { isSupabaseConfigured, supabase } from "@/src/lib/supabase";
+import { createClient } from "@/src/lib/supabase/client";
+import { isSupabaseConfigured } from "@/src/lib/supabase/config";
 
 type AuthMode = "sign-in" | "sign-up";
 
 export function AuthForm() {
   const router = useRouter();
+  const supabase = useMemo(() => createClient(), []);
   const [mode, setMode] = useState<AuthMode>("sign-in");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,15 +31,9 @@ export function AuthForm() {
     const authAction =
       mode === "sign-in"
         ? supabase.auth.signInWithPassword({ email, password })
-        : supabase.auth.signUp({
-            email,
-            password,
-            options: {
-              emailRedirectTo: `${window.location.origin}/dashboard`
-            }
-          });
+        : supabase.auth.signUp({ email, password });
 
-    const { error } = await authAction;
+    const { data, error } = await authAction;
     setIsLoading(false);
 
     if (error) {
@@ -45,8 +41,11 @@ export function AuthForm() {
       return;
     }
 
-    if (mode === "sign-up") {
-      setMessage("Account created. Check your email if confirmation is enabled.");
+    // With email confirmation disabled, sign-up returns a session immediately.
+    // If a project ever re-enables confirmation, fall back to the sign-in tab.
+    if (mode === "sign-up" && !data.session) {
+      setMessage("Account created. You can now sign in.");
+      setMode("sign-in");
       return;
     }
 

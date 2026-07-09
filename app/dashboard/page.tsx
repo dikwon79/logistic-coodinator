@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DoorOpen, Handshake, LoaderCircle, LogOut, PackageCheck, Plus, Search, Settings } from "lucide-react";
@@ -8,10 +8,12 @@ import { BrandLogo } from "@/src/components/BrandLogo";
 import { CarrierOperations } from "@/src/components/CarrierOperations";
 import { RouteWorkbench } from "@/src/components/RouteWorkbench";
 import { dashboardStats } from "@/src/lib/operations";
-import { isSupabaseConfigured, supabase } from "@/src/lib/supabase";
+import { createClient } from "@/src/lib/supabase/client";
+import { isSupabaseConfigured } from "@/src/lib/supabase/config";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const supabase = useMemo(() => createClient(), []);
   const [isReady, setIsReady] = useState(!isSupabaseConfigured);
   const [userEmail, setUserEmail] = useState("Demo coordinator");
 
@@ -59,6 +61,7 @@ export default function DashboardPage() {
     }
 
     router.push("/");
+    router.refresh();
   }
 
   if (!isReady) {
